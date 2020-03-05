@@ -1,0 +1,50 @@
+{
+  "name": "@bwnl/print",
+  "version": "1.0.0",
+  "description": ":school_satchel: Print",
+  "directories": {
+    "doc": "docs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SudoDotDog/BWNL-Print.git"
+  },
+  "author": "WMXPY",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/SudoDotDog/BWNL-Print/issues"
+  },
+  "homepage": "https://github.com/SudoDotDog/BWNL-Print#readme",
+  "peerDependencies": {
+    "react": "*",
+    "react-dom": "*"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "@sudoo/io": "^1.7.0",
+    "@sudoo/mock": "^1.3.0",
+    "@sudoo/react-force": "^1.7.0",
+    "@sudoo/react-force-dev": "^1.7.0",
+    "@sudoo/triforce": "^2.2.1",
+    "docz": "^2.2.0",
+    "docz-theme-default": "^1.2.0"
+  },
+  "nyc": {
+    "extension": [
+      ".ts"
+    ],
+    "include": [
+      "src/**/*.ts"
+    ],
+    "instrument": true,
+    "reporter": [
+      "json",
+      "text-summary"
+    ],
+    "report-dir": "coverage",
+    "require": [
+      "./test/tshook.js"
+    ],
+    "sourceMap": true
+  }
+}
