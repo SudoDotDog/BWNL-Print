@@ -4,7 +4,7 @@
  * @description Index
  */
 
-export * from "./print/frame";
-export * from "./print/print";
+export * from "./print";
+export * from "./print/printer";
 export * from "./render/render";
 

@@ -12,6 +12,14 @@ import { Playground } from "docz";
 
 <Playground>
     <button onClick={() => {
-        printReactElement(<Card>Example</Card>);
+        printReactElement((<Card
+            title="Example"
+        >
+            Example
+        </Card>), {
+            injectCSSFiles: [
+                'https://cdn.jsdelivr.net/npm/antd@4.0.1/dist/antd.min.css',
+            ],
+        });
     }}>Print</button>
 </Playground>

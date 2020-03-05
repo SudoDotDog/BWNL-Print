@@ -8,25 +8,25 @@ import * as React from "react";
 import { Printer } from "./print/printer";
 import { renderReactElementToString } from "./render/render";
 
-export const printReactElement = (element: React.ReactElement): Promise<void> => {
+export type PrintOptions = {
+
+    readonly injectCSSFiles?: string[];
+};
+
+export const printReactElement = async (
+    element: React.ReactElement,
+    options: PrintOptions = {},
+): Promise<void> => {
 
     const agent: Printer = Printer.create();
 
-    return new Promise<void>((resolve: () => void, reject: (reason: any) => void) => {
+    if (options.injectCSSFiles) {
+        agent.injectCSSFiles(...options.injectCSSFiles);
+    }
 
-        try {
+    const renderResult: string = renderReactElementToString(element);
+    agent.write(renderResult);
+    await agent.print();
 
-            const renderResult: string = renderReactElementToString(element);
-
-            agent.injectCSS('https://cdn.jsdelivr.net/npm/antd@4.0.1/dist/antd.min.css');
-            agent.write(renderResult);
-            agent.print();
-
-            resolve();
-        } catch (error) {
-
-            reject(error);
-        }
-        return;
-    });
+    return;
 };

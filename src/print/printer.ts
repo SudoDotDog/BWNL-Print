@@ -28,37 +28,52 @@ export class Printer {
         return this;
     }
 
-    public injectCSS(href: string): this {
+    public injectCSSFiles(...links: string[]): this {
 
-        this._styles.push(href);
+        this._styles.push(...links);
         return this;
     }
 
-    public async print(): Promise<void> {
+    public print(): Promise<void> {
 
-        const frame: HTMLIFrameElement = createIFrame();
+        return new Promise<void>((resolve: () => void, reject: (reason: any) => void) => {
 
-        document.body.appendChild(frame);
+            try {
+                const frame: HTMLIFrameElement = createIFrame();
 
-        if (!frame.contentWindow) {
-            throw new Error("[BWNL-Print] Mount Failed");
-        }
+                document.body.appendChild(frame);
 
-        frame.contentWindow.document.open();
-        frame.contentWindow.document.write(getEmptyHtmlText());
+                if (!frame.contentWindow) {
+                    throw new Error("[BWNL-Print] Mount Failed");
+                }
 
-        for (const style of this._styles) {
-            const link: HTMLLinkElement = createCSSLink(style);
-            frame.contentWindow.document.head.appendChild(link);
-        }
+                frame.contentWindow.document.open();
+                frame.contentWindow.document.write(getEmptyHtmlText());
 
-        frame.contentWindow.document.write(...this._contents);
-        frame.contentWindow.document.close();
+                for (const style of this._styles) {
+                    const link: HTMLLinkElement = createCSSLink(style);
+                    frame.contentWindow.document.head.appendChild(link);
+                }
 
-        frame.contentWindow.focus();
-        frame.contentWindow.print();
+                frame.contentWindow.document.write(...this._contents);
+                frame.contentWindow.document.close();
 
-        document.body.removeChild(frame);
-        return;
+                frame.contentWindow.focus();
+                console.log('1');
+
+                frame.onload = ((_: Event) => {
+                    console.log('2');
+                    frame.contentWindow.print();
+                    document.body.removeChild(frame);
+                    resolve();
+                });
+            } catch (error) {
+
+                console.log(error);
+
+                reject(error);
+            }
+            return;
+        });
     }
 }
