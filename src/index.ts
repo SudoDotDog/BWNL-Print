@@ -7,4 +7,5 @@
 export * from "./print";
 export * from "./print/printer";
 export * from "./render/render";
+export * from "./util";
 

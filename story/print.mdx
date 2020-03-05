@@ -8,14 +8,22 @@ import { Playground } from "docz";
 
 # Print
 
-## Example
+## Simple
+
+<Playground>
+    <button onClick={() => {
+        printReactElement(<div>Hello There</div>);
+    }}>Print</button>
+</Playground>
+
+## Inject CSS
 
 <Playground>
     <button onClick={() => {
         printReactElement((<Card
-            title="Example"
+            title="Hello"
         >
-            Example
+            Hello There
         </Card>), {
             injectCSSFiles: [
                 'https://cdn.jsdelivr.net/npm/antd@4.0.1/dist/antd.min.css',
