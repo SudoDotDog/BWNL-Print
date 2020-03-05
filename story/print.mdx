@@ -3,6 +3,7 @@ name: Print
 ---
 
 import { printReactElement } from "../src/index";
+import { Card } from "antd";
 import { Playground } from "docz";
 
 # Print
@@ -11,6 +12,6 @@ import { Playground } from "docz";
 
 <Playground>
     <button onClick={() => {
-        printReactElement(<div>Example</div>);
+        printReactElement(<Card>Example</Card>);
     }}>Print</button>
 </Playground>

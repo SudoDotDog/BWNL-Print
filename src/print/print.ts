@@ -19,8 +19,10 @@ export const printReactElement = (element: React.ReactElement): Promise<void> =>
             const renderResult: string = renderReactElementToString(element);
 
             agent.mount();
+
             agent.write(renderResult);
             agent.print();
+
             agent.unmount();
 
             resolve();

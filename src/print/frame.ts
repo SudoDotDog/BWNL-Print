@@ -18,26 +18,34 @@ export class PrintFrameAgent {
         this._frame = document.createElement('iframe');
     }
 
-    public mount() {
+    public mount(): this {
 
         document.body.appendChild(this._frame);
+        return this;
     }
 
-    public unmount() {
+    public unmount(): this {
 
         document.body.removeChild(this._frame);
+        return this;
     }
 
-    public write(text: string) {
+    public write(text: string): this {
 
-        this._getWindow().document.write(text);
+        const frameWindow: Window = this._getWindow();
+
+        frameWindow.document.write(text);
+        return this;
     }
 
-    public print() {
+    public print(): this {
 
-        this._getWindow().document.close();
-        this._getWindow().focus();
-        this._getWindow().print();
+        const frameWindow: Window = this._getWindow();
+
+        frameWindow.document.close();
+        frameWindow.focus();
+        frameWindow.print();
+        return this;
     }
 
     private _getWindow(): Window {
