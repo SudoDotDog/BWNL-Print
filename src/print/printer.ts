@@ -48,12 +48,13 @@ export class Printer {
         return new Promise<void>((resolve: () => void, reject: (reason: any) => void) => {
 
             try {
+
                 const frame: HTMLIFrameElement = createIFrame();
 
                 document.body.appendChild(frame);
 
                 if (!frame.contentWindow) {
-                    throw new Error("[BWNL-Print] Mount Failed");
+                    throw new Error("[BWNL-Print] IFrame Mount Failed");
                 }
 
                 frame.contentWindow.document.open();
@@ -72,6 +73,12 @@ export class Printer {
                 if (this._needLoads) {
 
                     frame.onload = ((_: Event) => {
+
+                        if (!frame.contentWindow) {
+                            reject(new Error("[BWNL-Print] Printing Failed"));
+                            return;
+                        }
+
                         frame.contentWindow.print();
                         document.body.removeChild(frame);
                         resolve();
@@ -83,8 +90,6 @@ export class Printer {
                     resolve();
                 }
             } catch (error) {
-
-                console.log(error);
 
                 reject(error);
             }
