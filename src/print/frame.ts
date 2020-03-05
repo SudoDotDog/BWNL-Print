@@ -30,13 +30,21 @@ export class PrintFrameAgent {
 
     public write(text: string) {
 
-        this._frame.contentWindow.document.write(text);
+        this._getWindow().document.write(text);
     }
 
     public print() {
 
-        this._frame.contentWindow.document.close();
-        this._frame.contentWindow.focus();
-        this._frame.contentWindow.print();
+        this._getWindow().document.close();
+        this._getWindow().focus();
+        this._getWindow().print();
+    }
+
+    private _getWindow(): Window {
+
+        if (this._frame.contentWindow) {
+            return this._frame.contentWindow;
+        }
+        throw new Error('[Sudoo-Print] Mount window first');
     }
 }
