@@ -11,48 +11,60 @@ export class PrintFrameAgent {
         return new PrintFrameAgent();
     }
 
-    private readonly _frame: HTMLIFrameElement;
+    private readonly _contents: string[];
+    private readonly _styles: string[];
 
     private constructor() {
 
-        this._frame = document.createElement('iframe');
-    }
-
-    public mount(): this {
-
-        document.body.appendChild(this._frame);
-        return this;
-    }
-
-    public unmount(): this {
-
-        document.body.removeChild(this._frame);
-        return this;
+        this._contents = [];
+        this._styles = [];
     }
 
     public write(text: string): this {
 
-        const frameWindow: Window = this._getWindow();
+        this._contents.push(text);
+        return this;
+    }
 
-        frameWindow.document.write(text);
+    public injectCSS(href: string): this {
+
+        this._styles.push(href);
         return this;
     }
 
     public print(): this {
 
-        const frameWindow: Window = this._getWindow();
+        const frame: HTMLIFrameElement = document.createElement('iframe');
 
-        frameWindow.document.close();
-        frameWindow.focus();
-        frameWindow.print();
+        document.body.appendChild(frame);
+
+        if (!frame.contentWindow) {
+            throw new Error("[BWNL-Print] Mount Failed");
+        }
+
+        frame.contentWindow.document.open();
+        frame.contentWindow.document.write('Initial');
+
+        for (const style of this._styles) {
+            frame.contentWindow.document.head.appendChild(this._buildCSSLink(style));
+        }
+
+        frame.contentWindow.document.write(...this._contents);
+        frame.contentWindow.document.close();
+
+        frame.contentWindow.focus();
+        frame.contentWindow.print();
+
+        document.body.removeChild(frame);
         return this;
     }
 
-    private _getWindow(): Window {
+    private _buildCSSLink(href: string): HTMLLinkElement {
 
-        if (this._frame.contentWindow) {
-            return this._frame.contentWindow;
-        }
-        throw new Error('[Sudoo-Print] Mount window first');
+        const link: HTMLLinkElement = document.createElement('link');
+        link.href = href;
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        return link;
     }
 }

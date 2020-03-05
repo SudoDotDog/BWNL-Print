@@ -18,12 +18,9 @@ export const printReactElement = (element: React.ReactElement): Promise<void> =>
 
             const renderResult: string = renderReactElementToString(element);
 
-            agent.mount();
-
+            agent.injectCSS('https://cdn.jsdelivr.net/npm/antd@4.0.1/dist/antd.min.css');
             agent.write(renderResult);
             agent.print();
-
-            agent.unmount();
 
             resolve();
         } catch (error) {
