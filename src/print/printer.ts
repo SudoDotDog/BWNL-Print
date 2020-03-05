@@ -16,10 +16,14 @@ export class Printer {
     private readonly _contents: string[];
     private readonly _styles: string[];
 
+    private _needLoads: boolean;
+
     private constructor() {
 
         this._contents = [];
         this._styles = [];
+
+        this._needLoads = false;
     }
 
     public write(text: string): this {
@@ -30,7 +34,12 @@ export class Printer {
 
     public injectCSSFiles(...links: string[]): this {
 
-        this._styles.push(...links);
+        if (links.length > 0) {
+
+            this._styles.push(...links);
+            this._needLoads = true;
+        }
+
         return this;
     }
 
@@ -59,14 +68,20 @@ export class Printer {
                 frame.contentWindow.document.close();
 
                 frame.contentWindow.focus();
-                console.log('1');
 
-                frame.onload = ((_: Event) => {
-                    console.log('2');
+                if (this._needLoads) {
+
+                    frame.onload = ((_: Event) => {
+                        frame.contentWindow.print();
+                        document.body.removeChild(frame);
+                        resolve();
+                    });
+                } else {
+
                     frame.contentWindow.print();
                     document.body.removeChild(frame);
                     resolve();
-                });
+                }
             } catch (error) {
 
                 console.log(error);
