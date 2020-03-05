@@ -4,6 +4,8 @@
  * @description Frame
  */
 
+import { createCSSLink, createIFrame, getEmptyHtmlText } from "../util";
+
 export class PrintFrameAgent {
 
     public static create(): PrintFrameAgent {
@@ -34,7 +36,7 @@ export class PrintFrameAgent {
 
     public print(): this {
 
-        const frame: HTMLIFrameElement = document.createElement('iframe');
+        const frame: HTMLIFrameElement = createIFrame();
 
         document.body.appendChild(frame);
 
@@ -43,28 +45,20 @@ export class PrintFrameAgent {
         }
 
         frame.contentWindow.document.open();
-        frame.contentWindow.document.write('Initial');
+        frame.contentWindow.document.write(getEmptyHtmlText());
 
         for (const style of this._styles) {
-            frame.contentWindow.document.head.appendChild(this._buildCSSLink(style));
+            const link: HTMLLinkElement = createCSSLink(style);
+            frame.contentWindow.document.head.appendChild(link);
         }
 
         frame.contentWindow.document.write(...this._contents);
         frame.contentWindow.document.close();
 
         frame.contentWindow.focus();
-        frame.contentWindow.print();
+        // frame.contentWindow.print();
 
-        document.body.removeChild(frame);
+        // document.body.removeChild(frame);
         return this;
-    }
-
-    private _buildCSSLink(href: string): HTMLLinkElement {
-
-        const link: HTMLLinkElement = document.createElement('link');
-        link.href = href;
-        link.rel = 'stylesheet';
-        link.type = 'text/css';
-        return link;
     }
 }
