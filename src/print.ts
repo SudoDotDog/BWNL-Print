@@ -5,12 +5,12 @@
  */
 
 import * as React from "react";
-import { renderReactElementToString } from "../render/render";
-import { PrintFrameAgent } from "./frame";
+import { Printer } from "./print/printer";
+import { renderReactElementToString } from "./render/render";
 
 export const printReactElement = (element: React.ReactElement): Promise<void> => {
 
-    const agent: PrintFrameAgent = PrintFrameAgent.create();
+    const agent: Printer = Printer.create();
 
     return new Promise<void>((resolve: () => void, reject: (reason: any) => void) => {
 

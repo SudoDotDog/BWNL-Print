@@ -1,16 +1,16 @@
 /**
  * @author WMXPY
  * @namespace Print_Print
- * @description Frame
+ * @description Printer
  */
 
 import { createCSSLink, createIFrame, getEmptyHtmlText } from "../util";
 
-export class PrintFrameAgent {
+export class Printer {
 
-    public static create(): PrintFrameAgent {
+    public static create(): Printer {
 
-        return new PrintFrameAgent();
+        return new Printer();
     }
 
     private readonly _contents: string[];
@@ -34,7 +34,7 @@ export class PrintFrameAgent {
         return this;
     }
 
-    public print(): this {
+    public async print(): Promise<void> {
 
         const frame: HTMLIFrameElement = createIFrame();
 
@@ -56,9 +56,9 @@ export class PrintFrameAgent {
         frame.contentWindow.document.close();
 
         frame.contentWindow.focus();
-        // frame.contentWindow.print();
+        frame.contentWindow.print();
 
-        // document.body.removeChild(frame);
-        return this;
+        document.body.removeChild(frame);
+        return;
     }
 }
