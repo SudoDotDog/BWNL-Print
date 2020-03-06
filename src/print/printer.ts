@@ -4,21 +4,26 @@
  * @description Printer
  */
 
+import { PrintOptions } from "../print";
 import { createCSSLink, createIFrame, getEmptyHtmlText } from "../util";
 
 export class Printer {
 
-    public static create(): Printer {
+    public static create(options: PrintOptions): Printer {
 
-        return new Printer();
+        return new Printer(options);
     }
+
+    private readonly _options: PrintOptions;
 
     private readonly _contents: string[];
     private readonly _styles: string[];
 
     private _needLoads: boolean;
 
-    private constructor() {
+    private constructor(options: PrintOptions) {
+
+        this._options = options;
 
         this._contents = [];
         this._styles = [];
@@ -68,25 +73,49 @@ export class Printer {
                 frame.contentWindow.document.write(...this._contents);
                 frame.contentWindow.document.close();
 
-                frame.contentWindow.focus();
-
                 if (this._needLoads) {
+
+                    let printed: boolean = false;
+
+                    if (this._options.polyfillTimeout) {
+
+                        setTimeout(() => {
+
+                            if (printed) {
+                                return;
+                            }
+
+                            const result: boolean = this._executePrint(frame);
+                            if (!result) {
+                                reject(new Error("[BWNL-Print] Printing Failed"));
+                                return;
+                            }
+                            printed = true;
+                            resolve();
+                        }, this._options.polyfillTimeout);
+                    }
 
                     frame.onload = ((_: Event) => {
 
-                        if (!frame.contentWindow) {
-                            reject(new Error("[BWNL-Print] Printing Failed"));
+                        if (printed) {
                             return;
                         }
 
-                        frame.contentWindow.print();
-                        document.body.removeChild(frame);
+                        const result: boolean = this._executePrint(frame);
+                        if (!result) {
+                            reject(new Error("[BWNL-Print] Printing Failed"));
+                            return;
+                        }
+                        printed = true;
                         resolve();
                     });
                 } else {
 
-                    frame.contentWindow.print();
-                    document.body.removeChild(frame);
+                    const result: boolean = this._executePrint(frame);
+                    if (!result) {
+                        reject(new Error("[BWNL-Print] Printing Failed"));
+                        return;
+                    }
                     resolve();
                 }
             } catch (error) {
@@ -95,5 +124,19 @@ export class Printer {
             }
             return;
         });
+    }
+
+    private _executePrint(frame: HTMLIFrameElement): boolean {
+
+        console.log('triggered');
+
+        if (!frame.contentWindow) {
+            return false;
+        }
+
+        frame.contentWindow.focus();
+        frame.contentWindow.print();
+        document.body.removeChild(frame);
+        return true;
     }
 }

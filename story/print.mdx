@@ -31,3 +31,20 @@ import { Playground } from "docz";
         });
     }}>Print</button>
 </Playground>
+
+## Inject CSS Working on Safari
+
+<Playground>
+    <button onClick={() => {
+        printReactElement((<Card
+            title="Hello"
+        >
+            Hello There
+        </Card>), {
+            injectCSSFiles: [
+                'https://cdn.jsdelivr.net/npm/antd@4.0.1/dist/antd.min.css',
+            ],
+            polyfillTimeout: 200,
+        });
+    }}>Print</button>
+</Playground>
