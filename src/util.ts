@@ -18,6 +18,7 @@ export const createIFrame = (): HTMLIFrameElement => {
 
     const frame: HTMLIFrameElement = document.createElement('iframe');
     frame.style.border = '0px';
+    frame.style.display = 'none';
     frame.height = '0';
     frame.width = '0';
     frame.src = 'about:blank';
