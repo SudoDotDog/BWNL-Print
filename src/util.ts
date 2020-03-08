@@ -25,12 +25,3 @@ export const createIFrame = (): HTMLIFrameElement => {
 
     return frame;
 };
-
-export const createCSSLink = (href: string): HTMLLinkElement => {
-
-    const link: HTMLLinkElement = document.createElement('link');
-    link.href = href;
-    link.rel = 'stylesheet';
-    link.type = 'text/css';
-    return link;
-};

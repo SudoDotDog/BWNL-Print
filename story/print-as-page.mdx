@@ -12,7 +12,9 @@ import { Playground } from "docz";
 
 <Playground>
     <button onClick={() => {
-        printReactElementAsPage(<div>Hello There</div>);
+        printReactElementAsPage(<html>
+            <div>Hello There</div>
+        </html>);
     }}>Print</button>
 </Playground>
 
@@ -20,14 +22,23 @@ import { Playground } from "docz";
 
 <Playground>
     <button onClick={() => {
-        printReactElementAsPage((<Card
-            title="Hello"
-        >
-            Hello There
-        </Card>), {
-            injectCSSFiles: [
-                'https://cdn.jsdelivr.net/npm/antd@4.0.1/dist/antd.min.css',
-            ],
+        printReactElementAsPage((<html>
+            <head>
+                <link 
+                    href="https://cdn.jsdelivr.net/npm/antd@4.0.1/dist/antd.min.css"
+                    rel="stylesheet"
+                    type="text/css"
+                />
+            </head>
+            <body>
+                <Card
+                title="Hello"
+                >
+                    Hello There
+                </Card>
+            </body>
+        </html>), {
+            needLoads: true,
         });
     }}>Print</button>
 </Playground>
@@ -36,14 +47,23 @@ import { Playground } from "docz";
 
 <Playground>
     <button onClick={() => {
-        printReactElementAsPage((<Card
-            title="Hello"
-        >
-            Hello There
-        </Card>), {
-            injectCSSFiles: [
-                'https://cdn.jsdelivr.net/npm/antd@4.0.1/dist/antd.min.css',
-            ],
+        printReactElementAsPage((<html>
+            <head>
+                <link 
+                    href="https://cdn.jsdelivr.net/npm/antd@4.0.1/dist/antd.min.css"
+                    rel="stylesheet"
+                    type="text/css"
+                />
+            </head>
+            <body>
+                <Card
+                title="Hello"
+                >
+                    Hello There
+                </Card>
+            </body>
+        </html>), {
+            needLoads: true,
             polyfillTimeout: 200,
         });
     }}>Print</button>
