@@ -1,0 +1,50 @@
+---
+name: Print As Body
+---
+
+import { printReactElementAsBody } from "../src/index";
+import { Card } from "antd";
+import { Playground } from "docz";
+
+# Print As Body
+
+## Simple
+
+<Playground>
+    <button onClick={() => {
+        printReactElementAsBody(<div>Hello There</div>);
+    }}>Print</button>
+</Playground>
+
+## Inject CSS
+
+<Playground>
+    <button onClick={() => {
+        printReactElementAsBody((<Card
+            title="Hello"
+        >
+            Hello There
+        </Card>), {
+            injectCSSFiles: [
+                'https://cdn.jsdelivr.net/npm/antd@4.0.1/dist/antd.min.css',
+            ],
+        });
+    }}>Print</button>
+</Playground>
+
+## Inject CSS Working on Safari
+
+<Playground>
+    <button onClick={() => {
+        printReactElementAsBody((<Card
+            title="Hello"
+        >
+            Hello There
+        </Card>), {
+            injectCSSFiles: [
+                'https://cdn.jsdelivr.net/npm/antd@4.0.1/dist/antd.min.css',
+            ],
+            polyfillTimeout: 200,
+        });
+    }}>Print</button>
+</Playground>

@@ -14,7 +14,7 @@ export type PrintOptions = {
     readonly polyfillTimeout?: number;
 };
 
-export const printReactElement = async (
+export const printReactElementAsBody = async (
     element: React.ReactElement,
     options: PrintOptions = {},
 ): Promise<void> => {

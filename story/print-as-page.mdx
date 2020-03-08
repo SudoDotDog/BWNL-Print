@@ -1,18 +1,18 @@
 ---
-name: Print
+name: Print As Page
 ---
 
-import { printReactElement } from "../src/index";
+import { printReactElementAsPage } from "../src/index";
 import { Card } from "antd";
 import { Playground } from "docz";
 
-# Print
+# Print As Page
 
 ## Simple
 
 <Playground>
     <button onClick={() => {
-        printReactElement(<div>Hello There</div>);
+        printReactElementAsPage(<div>Hello There</div>);
     }}>Print</button>
 </Playground>
 
@@ -20,7 +20,7 @@ import { Playground } from "docz";
 
 <Playground>
     <button onClick={() => {
-        printReactElement((<Card
+        printReactElementAsPage((<Card
             title="Hello"
         >
             Hello There
@@ -36,7 +36,7 @@ import { Playground } from "docz";
 
 <Playground>
     <button onClick={() => {
-        printReactElement((<Card
+        printReactElementAsPage((<Card
             title="Hello"
         >
             Hello There
