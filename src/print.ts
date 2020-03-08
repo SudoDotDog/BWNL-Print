@@ -21,8 +21,7 @@ export const printReactElement = async (
     const agent: Printer = Printer.create(options);
 
     const renderResult: string = renderReactElementToString(element);
-    agent.write(renderResult);
-    await agent.print();
+    await agent.printAsBody(renderResult);
 
     return;
 };

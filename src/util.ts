@@ -4,12 +4,12 @@
  * @description Util
  */
 
-export const getEmptyHtmlText = (): string => {
+export const getBodyHtmlText = (body: string): string => {
 
     return [
         '<html>',
         '<head></head>',
-        '<body></body>',
+        `<body>${body}</body>`,
         '</html>',
     ].join('\n');
 };

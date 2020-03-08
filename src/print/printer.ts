@@ -5,7 +5,7 @@
  */
 
 import { PrintOptions } from "../print";
-import { createCSSLink, createIFrame, getEmptyHtmlText } from "../util";
+import { createIFrame, getBodyHtmlText } from "../util";
 
 export class Printer {
 
@@ -31,25 +31,38 @@ export class Printer {
         return this;
     }
 
-    public print(content: string): Promise<void> {
+    public async printAsBody(body: string): Promise<void> {
+
+        const frame: HTMLIFrameElement = this._prepareFrame();
+
+        frame.contentWindow.document.write(getBodyHtmlText(body));
+
+        return await this._printFrame(frame);
+    }
+
+    private _prepareFrame(): HTMLIFrameElement {
+
+        const frame: HTMLIFrameElement = createIFrame();
+
+        document.body.appendChild(frame);
+
+        if (!frame.contentWindow) {
+            throw new Error("[BWNL-Print] IFrame Mount Failed");
+        }
+
+        frame.contentWindow.document.open();
+
+        return frame;
+
+    }
+
+    private _printFrame(frame: HTMLIFrameElement): Promise<void> {
+
+        frame.contentWindow.document.close();
 
         return new Promise<void>((resolve: () => void, reject: (reason: any) => void) => {
 
             try {
-
-                const frame: HTMLIFrameElement = createIFrame();
-
-                document.body.appendChild(frame);
-
-                if (!frame.contentWindow) {
-                    throw new Error("[BWNL-Print] IFrame Mount Failed");
-                }
-
-                frame.contentWindow.document.open();
-                frame.contentWindow.document.write(getEmptyHtmlText());
-
-                frame.contentWindow.document.write(content);
-                frame.contentWindow.document.close();
 
                 if (this._needLoads) {
 
