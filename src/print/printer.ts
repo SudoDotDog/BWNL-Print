@@ -16,26 +16,22 @@ export class Printer {
 
     private readonly _options: PrintOptions;
 
-    private readonly _contents: string[];
-
     private _needLoads: boolean;
 
     private constructor(options: PrintOptions) {
 
         this._options = options;
 
-        this._contents = [];
-
         this._needLoads = false;
     }
 
-    public write(text: string): this {
+    public declareNeedLoads(): this {
 
-        this._contents.push(text);
+        this._needLoads = true;
         return this;
     }
 
-    public print(): Promise<void> {
+    public print(content: string): Promise<void> {
 
         return new Promise<void>((resolve: () => void, reject: (reason: any) => void) => {
 
@@ -52,7 +48,7 @@ export class Printer {
                 frame.contentWindow.document.open();
                 frame.contentWindow.document.write(getEmptyHtmlText());
 
-                frame.contentWindow.document.write(...this._contents);
+                frame.contentWindow.document.write(content);
                 frame.contentWindow.document.close();
 
                 if (this._needLoads) {
