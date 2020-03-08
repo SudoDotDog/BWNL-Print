@@ -25,7 +25,8 @@ export class Printer {
 
         const frame: HTMLIFrameElement = this._prepareFrame();
 
-        frame.contentWindow.document.write(getBodyHtmlText(body));
+        const contentWindow: Window = this._getContentWindow(frame);
+        contentWindow.document.write(getBodyHtmlText(body));
 
         return await this._printFrame(frame);
     }
@@ -34,7 +35,8 @@ export class Printer {
 
         const frame: HTMLIFrameElement = this._prepareFrame();
 
-        frame.contentWindow.document.write(html);
+        const contentWindow: Window = this._getContentWindow(frame);
+        contentWindow.document.write(html);
 
         return await this._printFrame(frame);
     }
@@ -45,18 +47,16 @@ export class Printer {
 
         document.body.appendChild(frame);
 
-        if (!frame.contentWindow) {
-            throw new Error("[BWNL-Print] IFrame Mount Failed");
-        }
-
-        frame.contentWindow.document.open();
+        const contentWindow: Window = this._getContentWindow(frame);
+        contentWindow.document.open();
 
         return frame;
     }
 
     private _printFrame(frame: HTMLIFrameElement): Promise<void> {
 
-        frame.contentWindow.document.close();
+        const contentWindow: Window = this._getContentWindow(frame);
+        contentWindow.document.close();
 
         return new Promise<void>((resolve: () => void, reject: (reason: any) => void) => {
 
@@ -125,5 +125,14 @@ export class Printer {
         frame.contentWindow.print();
         document.body.removeChild(frame);
         return true;
+    }
+
+    private _getContentWindow(frame: HTMLIFrameElement): Window {
+
+        if (!frame.contentWindow) {
+            throw new Error("[BWNL-Print] IFrame Mount Failed");
+        }
+
+        return frame.contentWindow;
     }
 }
