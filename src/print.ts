@@ -10,6 +10,7 @@ import { renderReactElementToString } from "./render/render";
 
 export type PrintOptions = {
 
+    readonly needLoads?: boolean;
     readonly polyfillTimeout?: number;
 };
 

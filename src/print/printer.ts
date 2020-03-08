@@ -16,19 +16,9 @@ export class Printer {
 
     private readonly _options: PrintOptions;
 
-    private _needLoads: boolean;
-
     private constructor(options: PrintOptions) {
 
         this._options = options;
-
-        this._needLoads = false;
-    }
-
-    public declareNeedLoads(): this {
-
-        this._needLoads = true;
-        return this;
     }
 
     public async printAsBody(body: string): Promise<void> {
@@ -53,7 +43,6 @@ export class Printer {
         frame.contentWindow.document.open();
 
         return frame;
-
     }
 
     private _printFrame(frame: HTMLIFrameElement): Promise<void> {
@@ -64,7 +53,7 @@ export class Printer {
 
             try {
 
-                if (this._needLoads) {
+                if (this._options.needLoads) {
 
                     let printed: boolean = false;
 
