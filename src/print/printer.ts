@@ -30,6 +30,15 @@ export class Printer {
         return await this._printFrame(frame);
     }
 
+    public async printAsPage(html: string): Promise<void> {
+
+        const frame: HTMLIFrameElement = this._prepareFrame();
+
+        frame.contentWindow.document.write(html);
+
+        return await this._printFrame(frame);
+    }
+
     private _prepareFrame(): HTMLIFrameElement {
 
         const frame: HTMLIFrameElement = createIFrame();

@@ -26,3 +26,16 @@ export const printReactElementAsBody = async (
 
     return;
 };
+
+export const printReactElementAsPage = async (
+    element: React.ReactElement,
+    options: PrintOptions = {},
+): Promise<void> => {
+
+    const agent: Printer = Printer.create(options);
+
+    const renderResult: string = renderReactElementToString(element);
+    await agent.printAsPage(renderResult);
+
+    return;
+};
