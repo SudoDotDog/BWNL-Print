@@ -17,7 +17,6 @@ export class Printer {
     private readonly _options: PrintOptions;
 
     private readonly _contents: string[];
-    private readonly _styles: string[];
 
     private _needLoads: boolean;
 
@@ -26,7 +25,6 @@ export class Printer {
         this._options = options;
 
         this._contents = [];
-        this._styles = [];
 
         this._needLoads = false;
     }
@@ -34,17 +32,6 @@ export class Printer {
     public write(text: string): this {
 
         this._contents.push(text);
-        return this;
-    }
-
-    public injectCSSFiles(...links: string[]): this {
-
-        if (links.length > 0) {
-
-            this._styles.push(...links);
-            this._needLoads = true;
-        }
-
         return this;
     }
 
@@ -64,11 +51,6 @@ export class Printer {
 
                 frame.contentWindow.document.open();
                 frame.contentWindow.document.write(getEmptyHtmlText());
-
-                for (const style of this._styles) {
-                    const link: HTMLLinkElement = createCSSLink(style);
-                    frame.contentWindow.document.head.appendChild(link);
-                }
 
                 frame.contentWindow.document.write(...this._contents);
                 frame.contentWindow.document.close();

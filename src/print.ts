@@ -10,7 +10,6 @@ import { renderReactElementToString } from "./render/render";
 
 export type PrintOptions = {
 
-    readonly injectCSSFiles?: string[];
     readonly polyfillTimeout?: number;
 };
 
@@ -20,10 +19,6 @@ export const printReactElement = async (
 ): Promise<void> => {
 
     const agent: Printer = Printer.create(options);
-
-    if (options.injectCSSFiles) {
-        agent.injectCSSFiles(...options.injectCSSFiles);
-    }
 
     const renderResult: string = renderReactElementToString(element);
     agent.write(renderResult);
