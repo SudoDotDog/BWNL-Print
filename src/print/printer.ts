@@ -117,8 +117,6 @@ export class Printer {
 
     private _executePrint(frame: HTMLIFrameElement): boolean {
 
-        console.log('triggered');
-
         if (!frame.contentWindow) {
             return false;
         }
