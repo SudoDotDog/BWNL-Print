@@ -3,7 +3,8 @@ tsconfig_build_path := typescript/tsconfig.build.json
 
 # NPX functions
 tsc := node_modules/.bin/tsc
-docz := node_modules/.bin/docz
+start-storybook := node_modules/.bin/start-storybook
+build-storybook := node_modules/.bin/build-storybook
 mocha := node_modules/.bin/mocha
 ts_node := node_modules/.bin/ts-node
 
@@ -12,16 +13,16 @@ ts_node := node_modules/.bin/ts-node
 main: run
 
 run: 
-	@echo "[INFO] Starting docz environment"
-	@NODE_ENV=development $(docz) dev
+	@echo "[INFO] Starting Storybook Environment"
+	@NODE_ENV=development $(start-storybook)
+
+story:
+	@echo "[INFO] Building Storybook Page"
+	@NODE_ENV=development $(build-storybook)
 
 build:
 	@echo "[INFO] Building for release"
 	@NODE_ENV=production $(tsc) --p $(tsconfig_build_path)
-
-docz:
-	@echo "[INFO] Building docz"
-	@NODE_ENV=development $(docz) build
 
 tests:
 	@echo "[INFO] Testing with Mocha"
@@ -55,3 +56,7 @@ clean-linux:
 publish: install tests license build
 	@echo "[INFO] Publishing package"
 	@cd app && npm publish --access=public
+
+ts-version:
+	@echo "[INFO] Getting TypeScript Version"
+	@NODE_ENV=development $(tsc) --version
