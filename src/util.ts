@@ -23,8 +23,10 @@ export const getBodyHtmlText = (body: string): string => {
 export const createHiddenStyle = (): HTMLStyleElement => {
 
     const style: HTMLStyleElement = document.createElement('style');
+    style.id = 'bwnl-print-hidden-style';
     style.innerHTML = [
-        '* {display: none}',
+        '@media print {div,header,footer,section{display:none;}}',
+        '@media screen {#bwnl-print-frame{display:none;}}',
     ].join('');
 
     return style;
@@ -33,6 +35,7 @@ export const createHiddenStyle = (): HTMLStyleElement => {
 export const createIFrame = (): HTMLIFrameElement => {
 
     const frame: HTMLIFrameElement = document.createElement('iframe');
+    frame.id = 'bwnl-print-frame';
     frame.style.border = '0px';
     frame.style.display = 'none';
     frame.height = '0';
@@ -45,6 +48,7 @@ export const createIFrame = (): HTMLIFrameElement => {
 export const createVisibleIFrame = (): HTMLIFrameElement => {
 
     const frame: HTMLIFrameElement = document.createElement('iframe');
+    frame.id = 'bwnl-print-frame';
     frame.style.border = '0px';
     frame.height = '100vh';
     frame.width = '100vw';

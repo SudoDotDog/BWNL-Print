@@ -22,6 +22,8 @@ export const Simple = () => {
 export const PolyfillMobile = () => {
 
     return (<button onClick={() => {
-        printReactElementAsBody(<div>Hello There</div>);
+        printReactElementAsBody(<div>Hello There</div>, {
+            polyfillMobile: true,
+        });
     }}>Print</button>);
 };

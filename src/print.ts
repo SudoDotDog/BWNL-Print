@@ -20,7 +20,6 @@ export type PrintOptions = {
 
 export const getPrinter = (options: PrintOptions): Printer | MobilePrinter => {
 
-    return MobilePrinter.create(options);
     if (options.polyfillMobile) {
         if (isMobileBrowser()) {
             return MobilePrinter.create(options);

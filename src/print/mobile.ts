@@ -112,7 +112,10 @@ export class MobilePrinter {
         const style: HTMLStyleElement = createHiddenStyle();
         document.head.appendChild(style);
 
+        window.print();
+
         this._destroyFrame(frame);
+        document.head.removeChild(style);
         return true;
     }
 
