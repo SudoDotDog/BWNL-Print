@@ -25,3 +25,14 @@ export const createIFrame = (): HTMLIFrameElement => {
 
     return frame;
 };
+
+export const createVisibleIFrame = (): HTMLIFrameElement => {
+
+    const frame: HTMLIFrameElement = document.createElement('iframe');
+    frame.style.border = '0px';
+    frame.height = '100vh';
+    frame.width = '100vw';
+    frame.src = 'about:blank';
+
+    return frame;
+};
