@@ -105,12 +105,10 @@ export class Printer {
 
     private _executePrint(frame: HTMLIFrameElement): boolean {
 
-        if (!frame.contentWindow) {
-            return false;
-        }
+        const contentWindow: Window = this._getContentWindow(frame);
 
-        frame.contentWindow.focus();
-        frame.contentWindow.print();
+        contentWindow.focus();
+        contentWindow.print();
         this._destroyFrame(frame);
         return true;
     }

@@ -105,14 +105,11 @@ export class MobilePrinter {
 
     private _executePrint(frame: HTMLIFrameElement): boolean {
 
-        if (!frame.contentWindow) {
-            return false;
-        }
+        const contentWindow: Window = this._getContentWindow(frame);
 
         const style: HTMLStyleElement = createHiddenStyle();
         document.head.appendChild(style);
 
-        const contentWindow: Window = this._getContentWindow(frame);
         frame.height = `${contentWindow.document.body.scrollHeight}px`;
 
         window.print();
