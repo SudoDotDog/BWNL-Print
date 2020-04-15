@@ -6,8 +6,9 @@
 
 import { PrintOptions } from "../print";
 import { createIFrame, getBodyHtmlText } from "../util";
+import { IPrinter } from "./declare";
 
-export class Printer {
+export class Printer implements IPrinter {
 
     public static create(options: PrintOptions): Printer {
 

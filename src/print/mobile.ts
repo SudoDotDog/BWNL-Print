@@ -5,10 +5,11 @@
  */
 
 import { PrintOptions } from "../print";
-import { createHiddenStyle, createVisibleIFrame, getBodyHtmlText } from "../util";
+import { createHiddenStyle, createVisibleIFrame } from "../util";
+import { IPrinter } from "./declare";
 import { Printer } from "./printer";
 
-export class MobilePrinter extends Printer {
+export class MobilePrinter extends Printer implements IPrinter {
 
     public static create(options: PrintOptions): MobilePrinter {
 
