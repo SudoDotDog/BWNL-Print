@@ -26,7 +26,7 @@ export const createHiddenStyle = (): HTMLStyleElement => {
     style.id = 'bwnl-print-hidden-style';
     style.innerHTML = [
         '@media print {div,header,footer,section{display:none;}}',
-        '@media screen {#bwnl-print-frame{display:none;}}',
+        '@media screen {#bwnl-print-frame{visibility:hidden;height:0;}}',
     ].join('');
 
     return style;
@@ -50,8 +50,7 @@ export const createVisibleIFrame = (): HTMLIFrameElement => {
     const frame: HTMLIFrameElement = document.createElement('iframe');
     frame.id = 'bwnl-print-frame';
     frame.style.border = '0px';
-    frame.height = '100vh';
-    frame.width = '100vw';
+    frame.width = '100%';
     frame.src = 'about:blank';
 
     return frame;

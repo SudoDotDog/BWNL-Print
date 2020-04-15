@@ -5,7 +5,7 @@
  */
 
 import { PrintOptions } from "../print";
-import { createIFrame, getBodyHtmlText, createVisibleIFrame, createHiddenStyle } from "../util";
+import { createHiddenStyle, createVisibleIFrame, getBodyHtmlText } from "../util";
 
 export class MobilePrinter {
 
@@ -111,6 +111,9 @@ export class MobilePrinter {
 
         const style: HTMLStyleElement = createHiddenStyle();
         document.head.appendChild(style);
+
+        const contentWindow: Window = this._getContentWindow(frame);
+        frame.height = `${contentWindow.document.body.scrollHeight}px`;
 
         window.print();
 
