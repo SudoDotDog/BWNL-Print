@@ -63,13 +63,13 @@ export class Printer implements IPrinter {
                             if (printed) {
                                 return;
                             }
+                            printed = true;
 
                             const result: boolean = this._executePrint(frame);
                             if (!result) {
                                 reject(new Error("[BWNL-Print] Printing Failed"));
                                 return;
                             }
-                            printed = true;
                             resolve();
                         }, this._options.polyfillTimeout);
                     }
@@ -79,13 +79,13 @@ export class Printer implements IPrinter {
                         if (printed) {
                             return;
                         }
+                        printed = true;
 
                         const result: boolean = this._executePrint(frame);
                         if (!result) {
                             reject(new Error("[BWNL-Print] Printing Failed"));
                             return;
                         }
-                        printed = true;
                         resolve();
                     });
                 } else {
@@ -116,8 +116,8 @@ export class Printer implements IPrinter {
         contentWindow.focus();
         contentWindow.print();
 
-        this._destroyFrame(frame);
         this._finishPrint(frame);
+        this._destroyFrame(frame);
 
         return true;
     }
