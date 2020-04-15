@@ -31,7 +31,7 @@ export const InjectCSS = () => {
         printReactElementAsPage((<html>
             <head>
                 <link
-                    href="https://cdn.jsdelivr.net/npm/antd@4.0.1/dist/antd.min.css"
+                    href="https://cdn.jsdelivr.net/npm/antd@4.1.3/dist/antd.min.css"
                     rel="stylesheet"
                     type="text/css"
                 />
@@ -55,7 +55,7 @@ export const InjectCSSWorkingOnSafari = () => {
         printReactElementAsPage((<html>
             <head>
                 <link
-                    href="https://cdn.jsdelivr.net/npm/antd@4.0.1/dist/antd.min.css"
+                    href="https://cdn.jsdelivr.net/npm/antd@4.1.3/dist/antd.min.css"
                     rel="stylesheet"
                     type="text/css"
                 />
