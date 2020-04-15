@@ -18,3 +18,10 @@ export const Simple = () => {
         printReactElementAsBody(<div>Hello There</div>);
     }}>Print</button>);
 };
+
+export const PolyfillMobile = () => {
+
+    return (<button onClick={() => {
+        printReactElementAsBody(<div>Hello There</div>);
+    }}>Print</button>);
+};

@@ -5,7 +5,7 @@
  */
 
 import { PrintOptions } from "../print";
-import { createIFrame, getBodyHtmlText } from "../util";
+import { createIFrame, getBodyHtmlText, createVisibleIFrame, createHiddenStyle } from "../util";
 
 export class MobilePrinter {
 
@@ -109,15 +109,16 @@ export class MobilePrinter {
             return false;
         }
 
-        frame.contentWindow.focus();
-        frame.contentWindow.print();
+        const style: HTMLStyleElement = createHiddenStyle();
+        document.head.appendChild(style);
+
         this._destroyFrame(frame);
         return true;
     }
 
     private _prepareFrame(): HTMLIFrameElement {
 
-        const frame: HTMLIFrameElement = createIFrame();
+        const frame: HTMLIFrameElement = createVisibleIFrame();
 
         document.body.appendChild(frame);
 

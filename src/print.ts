@@ -5,13 +5,28 @@
  */
 
 import * as React from "react";
+import { MobilePrinter } from "./print/mobile";
 import { Printer } from "./print/printer";
 import { renderReactElementToString } from "./render/render";
+import { isMobileBrowser } from "./util";
 
 export type PrintOptions = {
 
+    readonly polyfillMobile?: boolean;
+
     readonly needLoads?: boolean;
     readonly polyfillTimeout?: number;
+};
+
+export const getPrinter = (options: PrintOptions): Printer | MobilePrinter => {
+
+    return MobilePrinter.create(options);
+    if (options.polyfillMobile) {
+        if (isMobileBrowser()) {
+            return MobilePrinter.create(options);
+        }
+    }
+    return Printer.create(options);
 };
 
 export const printReactElementAsBody = async (
@@ -19,7 +34,7 @@ export const printReactElementAsBody = async (
     options: PrintOptions = {},
 ): Promise<void> => {
 
-    const agent: Printer = Printer.create(options);
+    const agent: Printer | MobilePrinter = getPrinter(options);
 
     const renderResult: string = renderReactElementToString(element);
     await agent.printAsBody(renderResult);
@@ -32,7 +47,7 @@ export const printReactElementAsPage = async (
     options: PrintOptions = {},
 ): Promise<void> => {
 
-    const agent: Printer = Printer.create(options);
+    const agent: Printer | MobilePrinter = getPrinter(options);
 
     const renderResult: string = renderReactElementToString(element);
     await agent.printAsPage(renderResult);
