@@ -41,18 +41,6 @@ export class Printer {
         return await this._printFrame(frame);
     }
 
-    private _prepareFrame(): HTMLIFrameElement {
-
-        const frame: HTMLIFrameElement = createIFrame();
-
-        document.body.appendChild(frame);
-
-        const contentWindow: Window = this._getContentWindow(frame);
-        contentWindow.document.open();
-
-        return frame;
-    }
-
     private _printFrame(frame: HTMLIFrameElement): Promise<void> {
 
         const contentWindow: Window = this._getContentWindow(frame);
@@ -123,8 +111,26 @@ export class Printer {
 
         frame.contentWindow.focus();
         frame.contentWindow.print();
-        document.body.removeChild(frame);
+        this._destroyFrame(frame);
         return true;
+    }
+
+    private _prepareFrame(): HTMLIFrameElement {
+
+        const frame: HTMLIFrameElement = createIFrame();
+
+        document.body.appendChild(frame);
+
+        const contentWindow: Window = this._getContentWindow(frame);
+        contentWindow.document.open();
+
+        return frame;
+    }
+
+    private _destroyFrame(frame: HTMLIFrameElement): this {
+
+        document.body.removeChild(frame);
+        return this;
     }
 
     private _getContentWindow(frame: HTMLIFrameElement): Window {
