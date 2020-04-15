@@ -17,6 +17,10 @@ export class Printer implements IPrinter {
 
     private readonly _options: PrintOptions;
 
+    protected _cachedParentTitle: string | null = null;
+    protected _cachedDocumentTitle: string | null = null;
+    protected _cachedFrameTitle: string | null = null;
+
     protected constructor(options: PrintOptions) {
 
         this._options = options;
@@ -43,9 +47,6 @@ export class Printer implements IPrinter {
     }
 
     protected _printFrame(frame: HTMLIFrameElement): Promise<void> {
-
-        const contentWindow: Window = this._getContentWindow(frame);
-        contentWindow.document.close();
 
         return new Promise<void>((resolve: () => void, reject: (reason: any) => void) => {
 
@@ -108,9 +109,16 @@ export class Printer implements IPrinter {
 
         const contentWindow: Window = this._getContentWindow(frame);
 
+        this._preparePrint(frame);
+
+        contentWindow.document.close();
+
         contentWindow.focus();
         contentWindow.print();
+
         this._destroyFrame(frame);
+        this._finishPrint(frame);
+
         return true;
     }
 
@@ -129,6 +137,42 @@ export class Printer implements IPrinter {
     protected _destroyFrame(frame: HTMLIFrameElement): this {
 
         document.body.removeChild(frame);
+        return this;
+    }
+
+    protected _preparePrint(frame: HTMLIFrameElement): this {
+
+        this._cachedParentTitle = window.parent.document.title;
+        this._cachedDocumentTitle = document.title;
+        this._cachedFrameTitle = frame.title;
+
+        if (this._options.fileName) {
+            frame.title = this._options.fileName;
+            document.title = this._options.fileName;
+            window.parent.document.title = this._options.fileName;
+        }
+
+        return this;
+    }
+
+    protected _finishPrint(frame: HTMLIFrameElement): this {
+
+        if (this._cachedParentTitle !== null) {
+            window.parent.document.title = this._cachedParentTitle;
+        }
+
+        if (this._cachedDocumentTitle !== null) {
+            document.title = this._cachedDocumentTitle;
+        }
+
+        if (this._cachedFrameTitle !== null) {
+            frame.title = this._cachedFrameTitle;
+        }
+
+        this._cachedParentTitle = null;
+        this._cachedDocumentTitle = null;
+        this._cachedFrameTitle = null;
+
         return this;
     }
 

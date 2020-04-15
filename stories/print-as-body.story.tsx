@@ -27,3 +27,12 @@ export const PolyfillMobile = () => {
         });
     }}>Print</button>);
 };
+
+export const ChangeFileName = () => {
+
+    return (<button onClick={() => {
+        printReactElementAsBody(<div>Hello There</div>, {
+            fileName: 'Hello World',
+        });
+    }}>Print</button>);
+};

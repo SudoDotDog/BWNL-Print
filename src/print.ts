@@ -13,6 +13,7 @@ import { isMobileBrowser } from "./util";
 
 export type PrintOptions = {
 
+    readonly fileName?: string;
     readonly polyfillMobile?: boolean;
 
     readonly needLoads?: boolean;
