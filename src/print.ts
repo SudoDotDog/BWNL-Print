@@ -4,8 +4,8 @@
  * @description Print
  */
 
-import { IPrinter } from "print/declare";
 import * as React from "react";
+import { IPrinter } from "./print/declare";
 import { MobilePrinter } from "./print/mobile";
 import { Printer } from "./print/printer";
 import { renderReactElementToString } from "./render/render";
