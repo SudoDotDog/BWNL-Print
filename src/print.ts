@@ -4,6 +4,7 @@
  * @description Print
  */
 
+import { IPrinter } from "print/declare";
 import * as React from "react";
 import { MobilePrinter } from "./print/mobile";
 import { Printer } from "./print/printer";
@@ -18,7 +19,7 @@ export type PrintOptions = {
     readonly polyfillTimeout?: number;
 };
 
-export const getPrinter = (options: PrintOptions): Printer | MobilePrinter => {
+export const getPrinter = (options: PrintOptions): IPrinter => {
 
     if (options.polyfillMobile) {
         if (isMobileBrowser()) {
@@ -33,7 +34,7 @@ export const printReactElementAsBody = async (
     options: PrintOptions = {},
 ): Promise<void> => {
 
-    const agent: Printer | MobilePrinter = getPrinter(options);
+    const agent: IPrinter = getPrinter(options);
 
     const renderResult: string = renderReactElementToString(element);
     await agent.printAsBody(renderResult);
@@ -46,7 +47,7 @@ export const printReactElementAsPage = async (
     options: PrintOptions = {},
 ): Promise<void> => {
 
-    const agent: Printer | MobilePrinter = getPrinter(options);
+    const agent: IPrinter = getPrinter(options);
 
     const renderResult: string = renderReactElementToString(element);
     await agent.printAsPage(renderResult);
