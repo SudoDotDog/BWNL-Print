@@ -17,9 +17,7 @@ export class Printer implements IPrinter {
 
     private readonly _options: PrintOptions;
 
-    protected _cachedParentTitle: string | null = null;
-    protected _cachedDocumentTitle: string | null = null;
-    protected _cachedFrameTitle: string | null = null;
+    protected _cachedTitle: string | null = null;
 
     protected constructor(options: PrintOptions) {
 
@@ -142,14 +140,10 @@ export class Printer implements IPrinter {
 
     protected _preparePrint(frame: HTMLIFrameElement): this {
 
-        this._cachedParentTitle = window.parent.document.title;
-        this._cachedDocumentTitle = document.title;
-        this._cachedFrameTitle = frame.title;
+        this._cachedTitle = window.top.document.title;
 
         if (this._options.fileName) {
-            frame.title = this._options.fileName;
-            document.title = this._options.fileName;
-            window.parent.document.title = this._options.fileName;
+            window.top.document.title = this._options.fileName;
         }
 
         return this;
@@ -157,21 +151,11 @@ export class Printer implements IPrinter {
 
     protected _finishPrint(frame: HTMLIFrameElement): this {
 
-        if (this._cachedParentTitle !== null) {
-            window.parent.document.title = this._cachedParentTitle;
+        if (this._cachedTitle !== null) {
+            window.top.document.title = this._cachedTitle;
         }
 
-        if (this._cachedDocumentTitle !== null) {
-            document.title = this._cachedDocumentTitle;
-        }
-
-        if (this._cachedFrameTitle !== null) {
-            frame.title = this._cachedFrameTitle;
-        }
-
-        this._cachedParentTitle = null;
-        this._cachedDocumentTitle = null;
-        this._cachedFrameTitle = null;
+        this._cachedTitle = null;
 
         return this;
     }
