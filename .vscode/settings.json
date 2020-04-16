@@ -2,26 +2,17 @@
     "cSpell.words": [
         "Hoverable",
         "RMRF",
-        "Triggerable",
-        "Unmount",
         "WMXPY",
         "antd",
         "bwnl",
-        "clazz",
         "codecov",
         "docgen",
-        "docz",
         "esnext",
         "prebuilts",
-        "splited",
-        "stylesheet",
         "sudoo",
         "triforce",
         "tshook"
     ],
     "tslint.configFile": "typescript/tslint.json",
-    "files.eol": "\n",
-    "cSpell.enableFiletypes": [
-        "mdx"
-    ]
+    "files.eol": "\n"
 }
