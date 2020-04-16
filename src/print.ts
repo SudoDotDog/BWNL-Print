@@ -1,6 +1,6 @@
 /**
  * @author WMXPY
- * @namespace Print_Print
+ * @namespace Print
  * @description Print
  */
 
