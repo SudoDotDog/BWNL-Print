@@ -48,6 +48,8 @@ export class Printer implements IPrinter {
 
         return new Promise<void>((resolve: () => void, reject: (reason: any) => void) => {
 
+            const contentWindow: Window = this._getContentWindow(frame);
+
             try {
 
                 if (this._options.needLoads) {
@@ -86,8 +88,11 @@ export class Printer implements IPrinter {
                         }
                         resolve();
                     });
+
+                    contentWindow.document.close();
                 } else {
 
+                    contentWindow.document.close();
                     const result: boolean = this._executePrint(frame);
                     if (!result) {
                         reject(new Error("[BWNL-Print] Printing Failed"));
@@ -108,8 +113,6 @@ export class Printer implements IPrinter {
         const contentWindow: Window = this._getContentWindow(frame);
 
         this._preparePrint(frame);
-
-        contentWindow.document.close();
 
         contentWindow.focus();
         contentWindow.print();
