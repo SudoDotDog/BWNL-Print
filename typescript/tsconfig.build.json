@@ -24,6 +24,7 @@
         "noImplicitThis": true,
         "removeComments": true,
         "resolveJsonModule": true,
+        "skipLibCheck": true,
         "target": "es6"
     },
     "exclude": [
