@@ -7,6 +7,7 @@ start-storybook := node_modules/.bin/start-storybook
 build-storybook := node_modules/.bin/build-storybook
 mocha := node_modules/.bin/mocha
 ts_node := node_modules/.bin/ts-node
+eslint := node_modules/.bin/eslint
 
 .IGNORE: clean-linux
 
@@ -26,12 +27,25 @@ build:
 
 tests:
 	@echo "[INFO] Testing with Mocha"
-	@NODE_ENV=test $(mocha)
+	@NODE_ENV=test \
+	$(mocha) --config test/.mocharc.json
 
 cov:
 	@echo "[INFO] Testing with Nyc and Mocha"
 	@NODE_ENV=test \
-	nyc $(mocha)
+	nyc $(mocha) --config test/.mocharc.json
+
+lint:
+	@echo "[INFO] Linting"
+	@NODE_ENV=production \
+	$(eslint) . --ext .ts,.tsx \
+	--config ./typescript/.eslintrc.json
+
+lint-fix:
+	@echo "[INFO] Linting and Fixing"
+	@NODE_ENV=development \
+	$(eslint) . --ext .ts,.tsx \
+	--config ./typescript/.eslintrc.json --fix
 
 install:
 	@echo "[INFO] Installing dev Dependencies"
