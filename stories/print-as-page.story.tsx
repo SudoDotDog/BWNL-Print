@@ -9,7 +9,6 @@ import { Card } from 'antd';
 import * as React from 'react';
 import { printReactElementAsPage } from "../src";
 
-// tslint:disable-next-line: no-default-export
 export default {
     title: 'Print As Page',
 };

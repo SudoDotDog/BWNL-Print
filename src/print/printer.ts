@@ -10,14 +10,15 @@ import { IPrinter } from "./declare";
 
 export class Printer implements IPrinter {
 
+
     public static create(options: PrintOptions): Printer {
 
         return new Printer(options);
     }
 
-    private readonly _options: PrintOptions;
-
     protected _cachedTitle: string | null = null;
+
+    private readonly _options: PrintOptions;
 
     protected constructor(options: PrintOptions) {
 
@@ -74,7 +75,7 @@ export class Printer implements IPrinter {
                         }, this._options.polyfillTimeout);
                     }
 
-                    frame.onload = ((_: Event) => {
+                    frame.onload = (() => {
 
                         if (printed) {
                             return;
@@ -141,6 +142,7 @@ export class Printer implements IPrinter {
         return this;
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     protected _preparePrint(frame: HTMLIFrameElement): this {
 
         this._cachedTitle = window.top.document.title;
@@ -152,6 +154,7 @@ export class Printer implements IPrinter {
         return this;
     }
 
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     protected _finishPrint(frame: HTMLIFrameElement): this {
 
         if (this._cachedTitle !== null) {
