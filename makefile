@@ -67,9 +67,13 @@ clean-linux:
 	@rm -rf coverage
 	@rm -rf storybook-static
 
-publish: install tests license build
+publish: install lint tests license build
 	@echo "[INFO] Publishing package"
 	@cd app && npm publish --access=public
+
+publish-dry-run: install lint tests license build
+	@echo "[INFO] Publishing package"
+	@cd app && npm publish --access=public --dry-run
 
 ts-version:
 	@echo "[INFO] Getting TypeScript Version"
