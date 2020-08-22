@@ -8,7 +8,7 @@ export const isMobileBrowser = (): boolean => {
 
     const regexp: RegExp = (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i);
     return regexp.test(navigator.userAgent);
-}
+};
 
 export const getBodyHtmlText = (body: string): string => {
 
