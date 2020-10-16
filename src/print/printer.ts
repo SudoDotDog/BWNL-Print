@@ -112,14 +112,15 @@ export class Printer implements IPrinter {
 
         const contentWindow: Window = this._getContentWindow(frame);
 
+        contentWindow.onafterprint = () => {
+            this._finishPrint(frame);
+            this._destroyFrame(frame);
+        };
+
         this._preparePrint(frame);
 
         contentWindow.focus();
         contentWindow.print();
-
-        this._finishPrint(frame);
-        this._destroyFrame(frame);
-
         return true;
     }
 
