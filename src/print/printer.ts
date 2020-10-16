@@ -142,8 +142,7 @@ export class Printer implements IPrinter {
         return this;
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    protected _preparePrint(frame: HTMLIFrameElement): this {
+    protected _preparePrint(_frame: HTMLIFrameElement): this {
 
         this._cachedTitle = window.top.document.title;
 
@@ -154,8 +153,7 @@ export class Printer implements IPrinter {
         return this;
     }
 
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    protected _finishPrint(frame: HTMLIFrameElement): this {
+    protected _finishPrint(_frame: HTMLIFrameElement): this {
 
         if (this._cachedTitle !== null) {
             window.top.document.title = this._cachedTitle;
