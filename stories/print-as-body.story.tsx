@@ -15,7 +15,9 @@ export default {
 export const Simple = () => {
 
     return (<button onClick={() => {
-        printReactElementAsBody(<div>Hello There</div>);
+        printReactElementAsBody(
+            (<div>Hello There</div>),
+        );
     }}>Print</button>);
 };
 
@@ -34,17 +36,23 @@ export const NeedLoad = () => {
 export const PolyfillMobile = () => {
 
     return (<button onClick={() => {
-        printReactElementAsBody(<div>Hello There</div>, {
-            polyfillMobile: true,
-        });
+        printReactElementAsBody(
+            (<div>Hello There</div>),
+            {
+                polyfillMobile: true,
+            },
+        );
     }}>Print</button>);
 };
 
 export const ChangeFileName = () => {
 
     return (<button onClick={() => {
-        printReactElementAsBody(<div>Hello There</div>, {
-            fileName: 'Hello World',
-        });
+        printReactElementAsBody(
+            (<div>Hello There</div>),
+            {
+                fileName: 'Hello World',
+            },
+        );
     }}>Print</button>);
 };

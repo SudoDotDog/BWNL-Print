@@ -16,60 +16,69 @@ export default {
 export const Simple = () => {
 
     return (<button onClick={() => {
-        printReactElementAsPage(<html>
-            <head></head>
-            <body>
-                <div>Hello There</div>
-            </body>
-        </html>);
-    }}>Print</button>);
+        printReactElementAsPage(
+            (<html>
+                <head></head>
+                <body>
+                    <div>Hello There</div>
+                </body>
+            </html>),
+        );
+    }}>Print</button>
+    );
 };
 
 export const InjectCSS = () => {
 
     return (<button onClick={() => {
-        printReactElementAsPage((<html>
-            <head>
-                <link
-                    href="https://cdn.jsdelivr.net/npm/antd@4.1.3/dist/antd.min.css"
-                    rel="stylesheet"
-                    type="text/css"
-                />
-            </head>
-            <body>
-                <Card
-                    title="Hello"
-                >
-                    Hello There
+        printReactElementAsPage(
+            (<html>
+                <head>
+                    <link
+                        href="https://cdn.jsdelivr.net/npm/antd@4.1.3/dist/antd.min.css"
+                        rel="stylesheet"
+                        type="text/css"
+                    />
+                </head>
+                <body>
+                    <Card
+                        title="Hello"
+                    >
+                        Hello There
                 </Card>
-            </body>
-        </html>), {
-            needLoads: true,
-        });
+                </body>
+            </html>),
+            {
+                needLoads: true,
+            },
+        );
     }}>Print</button>);
 };
 
 export const InjectCSSWorkingOnSafari = () => {
 
     return (<button onClick={() => {
-        printReactElementAsPage((<html>
-            <head>
-                <link
-                    href="https://cdn.jsdelivr.net/npm/antd@4.1.3/dist/antd.min.css"
-                    rel="stylesheet"
-                    type="text/css"
-                />
-            </head>
-            <body>
-                <Card
-                    title="Hello"
-                >
-                    Hello There
+        printReactElementAsPage(
+            (<html>
+                <head>
+                    <link
+                        href="https://cdn.jsdelivr.net/npm/antd@4.1.3/dist/antd.min.css"
+                        rel="stylesheet"
+                        type="text/css"
+                    />
+                </head>
+                <body>
+                    <Card
+                        title="Hello"
+                    >
+                        Hello There
                 </Card>
-            </body>
-        </html>), {
-            needLoads: true,
-            polyfillTimeout: 200,
-        });
+                </body>
+            </html>),
+            {
+                needLoads: true,
+                polyfillTimeout: 200,
+            },
+        );
     }}>Print</button>);
 };
