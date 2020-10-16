@@ -10,7 +10,6 @@ import { IPrinter } from "./declare";
 
 export class Printer implements IPrinter {
 
-
     public static create(options: PrintOptions): Printer {
 
         return new Printer(options);
