@@ -19,6 +19,18 @@ export const Simple = () => {
     }}>Print</button>);
 };
 
+export const NeedLoad = () => {
+
+    return (<button onClick={() => {
+        printReactElementAsBody(
+            (<div>Hello There</div>),
+            {
+                needLoads: true,
+            },
+        );
+    }}>Print</button>);
+};
+
 export const PolyfillMobile = () => {
 
     return (<button onClick={() => {
