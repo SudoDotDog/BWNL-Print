@@ -51,6 +51,10 @@ install:
 	@echo "[INFO] Installing dev Dependencies"
 	@yarn install --production=false
 
+outdated: install
+	@echo "[INFO] Checking Outdated Dependencies"
+	@yarn outdated
+
 license: clean
 	@echo "[INFO] Sign files"
 	@NODE_ENV=development $(ts_node) script/license.ts
