@@ -14,3 +14,16 @@ yarn add @bwnl/print
 # Or
 npm install @bwnl/print --save
 ```
+
+## Usage
+
+```tsx
+import * as React from 'react';
+import { printReactElementAsBody } from "@bwnl/print";
+
+const print = () => {
+    printReactElementAsBody(
+        (<div>Hello There</div>),
+    );
+};
+```
