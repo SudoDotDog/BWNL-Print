@@ -6,3 +6,11 @@
 [![downloads](https://img.shields.io/npm/dm/@bwnl/print.svg)](https://www.npmjs.com/package/@bwnl/print)
 
 :school_satchel: Print
+
+## Install
+
+```sh
+yarn add @bwnl/print
+# Or
+npm install @bwnl/print --save
+```
