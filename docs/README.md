@@ -27,3 +27,5 @@ const print = () => {
     );
 };
 ```
+
+For more example, visit `stories` directory within the repository.
