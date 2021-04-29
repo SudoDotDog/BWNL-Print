@@ -1,0 +1,36 @@
+version: 2
+updates:
+- package-ecosystem: npm
+  directory: "/"
+  schedule:
+    interval: daily
+  open-pull-requests-limit: 10
+  versioning-strategy: increase
+  ignore:
+  - dependency-name: ts-loader
+    versions:
+    - 9.0.0
+    - 9.1.1
+  - dependency-name: "@storybook/addon-actions"
+    versions:
+    - 6.1.19
+    - 6.2.2
+    - 6.2.4
+    - 6.2.9
+  - dependency-name: "@storybook/addon-knobs"
+    versions:
+    - 6.2.2
+    - 6.2.4
+    - 6.2.5
+  - dependency-name: "@storybook/react"
+    versions:
+    - 6.1.19
+    - 6.2.2
+    - 6.2.4
+    - 6.2.5
+  - dependency-name: "@babel/core"
+    versions:
+    - 7.13.13
+  - dependency-name: typescript
+    versions:
+    - 4.1.4
