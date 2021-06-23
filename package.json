@@ -31,7 +31,7 @@
     "@sudoo/react-force": "^1.9.0",
     "@sudoo/react-force-dev": "^1.9.0",
     "@sudoo/triforce": "^2.9.27",
-    "antd": "^4.16.3",
+    "antd": "^4.16.5",
     "babel-loader": "^8.2.2",
     "react-docgen-typescript-loader": "^3.7.2",
     "ts-loader": "^9.2.3",
