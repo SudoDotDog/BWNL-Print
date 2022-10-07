@@ -30,8 +30,8 @@
     "@sudoo/mock": "^1.5.0",
     "@sudoo/react-force": "^1.10.1",
     "@sudoo/react-force-dev": "^1.10.1",
-    "@sudoo/triforce": "^3.8.0",
-    "antd": "^4.23.4",
+    "@sudoo/triforce": "^3.9.0",
+    "antd": "^4.23.4",r
     "babel-loader": "^8.2.5",
     "react-docgen-typescript-loader": "^3.7.2",
     "ts-loader": "^9.4.1",
